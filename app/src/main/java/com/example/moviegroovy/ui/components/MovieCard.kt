@@ -1,5 +1,6 @@
 package com.example.moviegroovy.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -7,12 +8,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,15 +37,16 @@ fun MovieCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    OutlinedCard(
         colors = CardDefaults.cardColors(
             containerColor = colorResource(R.color.white)
         ),
         shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, Color.Black),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
         ),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick() }
@@ -59,7 +62,7 @@ fun MovieCard(
 //                painter = painterResource(id = R.drawable.ic_placeholder),
                 contentDescription = "Movie Poster",
                 modifier = Modifier
-                    .size(height = 120.dp, width = 90.dp)
+                    .size(height = 125.dp, width = 90.dp)
                     .clip(RoundedCornerShape(8.dp)),
                 contentScale = ContentScale.Crop
             )
@@ -74,7 +77,7 @@ fun MovieCard(
 //                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "⭐ ${movie.rating}",
                     fontSize = 14.sp,

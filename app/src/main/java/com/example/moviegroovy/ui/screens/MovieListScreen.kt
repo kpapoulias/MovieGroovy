@@ -20,6 +20,7 @@ import com.example.moviegroovy.viewModel.movies.MovieListViewModel
 
 @Composable
 fun MovieListScreen(
+    modifier: Modifier = Modifier,
     viewModel: MovieListViewModel = hiltViewModel(),
     onMovieClick: (Movie) -> Unit
 ) {
@@ -27,9 +28,9 @@ fun MovieListScreen(
     Log.d("MovieListScreen", "[DEBUG] movieState.movies size: ${movieState.movies.size}")
 
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .background(colorResource(R.color.gray))
+            .background(colorResource(R.color.black_primary))
             .padding(8.dp)
     ) {
         items(movieState.movies) { movie ->
