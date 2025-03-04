@@ -104,4 +104,8 @@ dependencies {
     implementation (libs.androidx.navigation.ui.ktx)
 
     implementation(libs.coil.compose)
+
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+
 }

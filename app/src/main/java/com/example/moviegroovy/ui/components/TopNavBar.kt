@@ -18,6 +18,7 @@ fun TopNavBar(
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = colorResource(R.color.purple_500),
+            scrolledContainerColor = colorResource(R.color.purple_500),
             titleContentColor = colorResource(R.color.white)
         ),
         title = {

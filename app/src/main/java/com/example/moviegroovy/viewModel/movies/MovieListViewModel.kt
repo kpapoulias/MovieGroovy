@@ -2,14 +2,12 @@ package com.example.moviegroovy.viewModel.movies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviegroovy.BuildConfig
-import com.example.moviegroovy.data.repository.MovieRepositoryImpl
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.moviegroovy.data.model.Movie
+import com.example.moviegroovy.data.repository.MovieRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -17,32 +15,8 @@ import javax.inject.Inject
 class MovieListViewModel @Inject constructor(
     private val repository: MovieRepositoryImpl
 ) : ViewModel() {
-    private val _movies = MutableStateFlow(MovieListState())
-    val movies: StateFlow<MovieListState> = _movies
-
-    init {
-        fetchMovies()
-        observeMovies()
-    }
-
-    private fun fetchMovies() {
-        viewModelScope.launch {
-            _movies.value = _movies.value.copy(isLoading = true)
-            try {
-                repository.fetchMovies(BuildConfig.TMDB_API_KEY)
-            } catch (e: Exception) {
-                _movies.value = MovieListState(error = e.localizedMessage)
-            }
-        }
-    }
-
-    private fun observeMovies() {
-        viewModelScope.launch {
-            repository.movies.collectLatest { movieList ->
-                _movies.value = _movies.value.copy(movies = movieList, isLoading = false)
-            }
-        }
-    }
+    val pagedMovies: Flow<PagingData<Movie>> = repository.getPagedMovies()
+        .cachedIn(viewModelScope) // Ensures data does not reload when the device rotates or UI recomposes.
 }
 
 data class MovieListState(
