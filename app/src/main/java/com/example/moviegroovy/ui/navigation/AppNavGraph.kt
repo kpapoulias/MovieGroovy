@@ -6,6 +6,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -14,36 +18,30 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.moviegroovy.data.model.Movie
-import com.example.moviegroovy.ui.components.TopNavBar
+import com.example.moviegroovy.ui.components.TopAppBarWithSearch
 import com.example.moviegroovy.ui.screens.MainScreen
 import com.example.moviegroovy.ui.screens.MovieDetailScreen
+import com.example.moviegroovy.ui.screens.Screen
 import com.example.moviegroovy.viewModel.MainViewModel
 import com.google.gson.Gson
 import java.net.URLDecoder
-import java.net.URLEncoder
-
-sealed class Screen(val route: String) {
-    data object Main : Screen("main")
-    data object MovieList : Screen("movie_list")
-    data object MovieDetail : Screen("movie_detail/{movieJson}") {
-        fun createRoute(movie: Movie): String {
-            val movieJson = Gson().toJson(movie)
-            return "movie_detail/${URLEncoder.encode(movieJson, "UTF-8")}"
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavGraph(navController: NavHostController) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    var showSearchBar by remember { mutableStateOf(false) }
+    var searchQuery by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
-            TopNavBar(
-                onMenuClick = { /* Handle menu click */ },
-                onSearchClick = { /* Handle search click */ },
-                scrollBehavior = scrollBehavior
+            TopAppBarWithSearch(
+                scrollBehavior = scrollBehavior,
+                showSearchBar = showSearchBar,
+                searchQuery = searchQuery,
+                onSearchClick = { showSearchBar = !showSearchBar },
+                onSearchQueryChange = { searchQuery = it },
+                onClearClick = { searchQuery = "" }
             )
         }
     ) { innerPadding ->

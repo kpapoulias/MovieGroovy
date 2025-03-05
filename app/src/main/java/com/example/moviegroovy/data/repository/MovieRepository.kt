@@ -8,4 +8,5 @@ interface MovieRepository {
     val movies: Flow<List<Movie>>
     suspend fun fetchMovies()
     fun getPagedMovies() : Flow<PagingData<Movie>>
+    fun searchMovies(query: String): Flow<List<Movie>>
 }

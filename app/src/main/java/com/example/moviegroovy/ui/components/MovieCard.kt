@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,7 +59,11 @@ fun MovieCard(
                 .padding(8.dp)
         ) {
             Image(
-                painter = rememberAsyncImagePainter(movie.imageUrl),
+                painter = rememberAsyncImagePainter(
+                    model = movie.imageUrl,
+                    error = painterResource(R.drawable.image_24px),
+                    placeholder = painterResource(R.drawable.image_24px)
+                ),
 //                painter = painterResource(id = R.drawable.ic_placeholder),
                 contentDescription = "Movie Poster",
                 modifier = Modifier

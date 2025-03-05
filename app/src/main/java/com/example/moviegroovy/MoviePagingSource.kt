@@ -9,7 +9,6 @@ import java.io.IOException
 
 class MoviePagingSource(
     private val api: MovieAPI,
-    private val apiKey: String
 ) : PagingSource<Int, Movie>() {
 
     override suspend fun load(
@@ -17,7 +16,7 @@ class MoviePagingSource(
     ): LoadResult<Int, Movie> {
         return try {
             val nextPageNumber = params.key ?: 1
-            val response = api.getPopularMovies(apiKey, nextPageNumber)
+            val response = api.getPopularMovies(nextPageNumber)
             val movies = response.results.map { it.toDomainMovie() }
             LoadResult.Page(
                 data = movies,
