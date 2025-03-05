@@ -1,15 +1,11 @@
 package com.example.moviegroovy.di
 
-import com.example.moviegroovy.BuildConfig
 import com.example.moviegroovy.data.remote.MovieAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -39,21 +35,4 @@ object NetworkModule {
     @Singleton
     fun provideMovieApi(retrofit: Retrofit): MovieAPI =
         retrofit.create(MovieAPI::class.java)
-}
-
-class ApiKeyInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val originalRequest: Request = chain.request()
-        val originalUrl = originalRequest.url
-
-        val newUrl = originalUrl.newBuilder()
-            .addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
-            .build()
-
-        val newRequest = originalRequest.newBuilder()
-            .url(newUrl)
-            .build()
-
-        return chain.proceed(newRequest)
-    }
 }

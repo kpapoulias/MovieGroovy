@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.moviegroovy.data.model.Movie
-import com.example.moviegroovy.data.repository.MovieRepositoryImpl
+import com.example.moviegroovy.data.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
-    private val repository: MovieRepositoryImpl
+    private val repository: MovieRepository
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
