@@ -10,6 +10,7 @@ data class MovieEntity(
     val title: String,
     val posterPath: String,
     val rating: Double,
+    val voteCount: Int,
     val description: String
 )
 
@@ -18,8 +19,9 @@ fun MovieEntity.toDomainMovie(): Movie {
     return Movie(
         id = this.id,
         title = this.title,
-        rating = this.rating,
         imageUrl = baseUrl + this.posterPath,
+        rating = this.rating,
+        voteCount = this.voteCount,
         description = this.description
     )
 }

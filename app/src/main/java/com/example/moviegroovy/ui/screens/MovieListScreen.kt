@@ -33,9 +33,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun MovieListScreen(
     modifier: Modifier = Modifier,
-    viewModel: MovieListViewModel = hiltViewModel(),
     onMovieClick: (Movie) -> Unit
 ) {
+    val viewModel: MovieListViewModel = hiltViewModel()
     val pagedMovies = viewModel.pagedMovies.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()

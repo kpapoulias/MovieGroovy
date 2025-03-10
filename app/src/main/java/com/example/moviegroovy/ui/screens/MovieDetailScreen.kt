@@ -105,8 +105,9 @@ fun PreviewMovieDetailScreen() {
     val sampleMovie = Movie(
         id = 1,
         title = "Inception",
-        rating = 8.8,
         imageUrl = "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg",
+        rating = 8.8,
+        voteCount = 100,
         description = "A thief who enters the dreams of others to steal secrets from their subconscious."
     )
 

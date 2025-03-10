@@ -89,6 +89,13 @@ fun MovieCard(
                     fontWeight = FontWeight.Medium,
                     color = Color.Gray
                 )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "(${movie.voteCount})",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.Gray
+                )
             }
         }
     }
@@ -103,6 +110,7 @@ fun PreviewMovieCard() {
             title = "Inception",
             rating = 8.8,
             imageUrl = "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg",
+            voteCount = 100,
             description = ""
         ),
         onClick = {}
