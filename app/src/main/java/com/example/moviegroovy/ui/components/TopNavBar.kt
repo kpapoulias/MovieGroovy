@@ -1,7 +1,6 @@
 package com.example.moviegroovy.ui.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -10,6 +9,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -20,10 +20,9 @@ import com.example.moviegroovy.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopNavBar(
-    showSearchBar: Boolean,
     onMenuClick: () -> Unit,
     onSearchClick: () -> Unit,
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    scrollBehavior: TopAppBarScrollBehavior?
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -50,8 +49,8 @@ fun TopNavBar(
         actions = {
             IconButton(onClick = onSearchClick) {
                 Icon(
-                    imageVector = if (showSearchBar) Icons.Default.Close else Icons.Default.Search,
-                    contentDescription = if (showSearchBar) "Close Search" else "Search",
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search",
                     tint = colorResource(R.color.white)
                 )
             }
@@ -65,8 +64,8 @@ fun TopNavBar(
 @Composable
 fun PreviewTopNavBar() {
     TopNavBar(
-        showSearchBar = false,
         onMenuClick = {},
-        onSearchClick = {}
+        onSearchClick = {},
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     )
 }
