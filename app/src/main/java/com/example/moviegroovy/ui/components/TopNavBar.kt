@@ -13,17 +13,20 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moviegroovy.R
+import com.example.moviegroovy.viewModel.DrawerViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopNavBar(
-    onMenuClick: () -> Unit,
-    onSearchClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior?
 ) {
+    val viewModel: DrawerViewModel = hiltViewModel()
+
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = colorResource(R.color.purple_500),
@@ -32,13 +35,15 @@ fun TopNavBar(
         ),
         title = {
             Text(
-                text = "MovieGroovy",
+                text = stringResource(R.string.app_name),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = {
-            IconButton(onClick = onMenuClick) {
+            IconButton(onClick = {
+                viewModel.toggleDrawer()
+            }) {
                 Icon(
                     painter = painterResource(R.drawable.menu_24px),
                     contentDescription = "Menu",
@@ -47,7 +52,9 @@ fun TopNavBar(
             }
         },
         actions = {
-            IconButton(onClick = onSearchClick) {
+            IconButton(onClick = {
+
+            }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search",
@@ -64,8 +71,6 @@ fun TopNavBar(
 @Composable
 fun PreviewTopNavBar() {
     TopNavBar(
-        onMenuClick = {},
-        onSearchClick = {},
         scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     )
 }
